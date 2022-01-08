@@ -8,7 +8,7 @@ import { Note } from './note.nodule';
 })
 
 export class DataService {
-  private REST_API_SERVER = 'http://localhost:3000';
+  private REST_API_SERVER = 'https://noteappapi.herokuapp.com';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
