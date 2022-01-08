@@ -15,6 +15,9 @@ import { FormsModule } from '@angular/forms';
 import {MessageModule} from 'primeng/message';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
+import {DialogModule} from 'primeng/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { ToastModule } from 'primeng/toast';
     FormsModule,
     MessageModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    DialogModule,
+    BrowserAnimationsModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
