@@ -1,0 +1,119 @@
+<div class="card">
+  <p-card header="Notes App">
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-plus"
+      class="p-button-rounded"
+      (click)="addNote()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-trash"
+      class="p-button-rounded"
+      (click)="deleteNote()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-pencil"
+      class="p-button-rounded"
+      (click)="editNote()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-refresh"
+      class="p-button-rounded"
+      (click)="refreshNote()"
+    ></button>
+    <p-splitter
+      [style]="{ height: '300px' }"
+      [panelSizes]="[50, 50]"
+      styleClass="p-mb-5"
+    >
+      <ng-template pTemplate>
+        <div class="p-col p-d-flex p-ai-center p-jc-center">
+          <div class="p-input-icon-right" style="margin-bottom: 20px">
+            <i class="pi pi-search" style="cursor: pointer" (click)="searchNote()"></i>
+            <input type="text" pInputText [(ngModel)]="txtSearchNote" placeholder="Search" />
+          </div>
+
+          <li *ngIf="newNote && !isEditNote" style="cursor: pointer">
+            {{ newNote.title }}
+            <br />
+            <span style="font-style: italic; margin-left: 30px">{{
+              newNote.note.toString().substring(0, 20)
+            }}</span>
+          </li>
+          <li
+            *ngFor="let note of notes"
+            style="cursor: pointer"
+            (click)="viewNote(note)"
+            [ngClass]="getSelectedClass(note)"
+          >
+            <b>{{ note.title }}</b>
+            <br />
+            <span style="font-style: italic; margin-left: 30px">
+              {{ note.note.toString().substring(0, 20) }} ...
+            </span>
+          </li>
+        </div>
+      </ng-template>
+      <ng-template pTemplate>
+        <div *ngIf="newNote" style="width: 100%">
+          <span class="p-float-label">
+            <textarea
+              id="float-input"
+              rows="1"
+              style="width: 100%"
+              pInputTextarea
+              [(ngModel)]="newNote.title"
+            ></textarea>
+            <label for="float-input">Title</label>
+          </span>
+          <br />
+          <span class="p-float-label">
+            <textarea
+              id="float-input"
+              rows="7"
+              style="width: 100%"
+              pInputTextarea
+              [(ngModel)]="newNote.note"
+            ></textarea>
+            <label for="float-input">Note</label>
+          </span>
+          <br />
+          <p-button
+            label="Save"
+            icon="pi pi-check"
+            (click)="saveNote()"
+          ></p-button>
+          <p-button
+            label="Cancel"
+            icon="pi pi-times"
+            styleClass="p-button-secondary"
+            [style]="{ 'margin-left': '.5em' }"
+            (click)="cancelAddNote()"
+          ></p-button>
+        </div>
+        <div
+          class="p-col p-d-flex p-ai-center p-jc-center"
+          *ngIf="selectedNote && !newNote"
+        >
+          <span style="font-style: italic">
+            <b>{{ selectedNote.title }} </b>
+          </span>
+          <br />
+          {{ selectedNote.note }}
+        </div>
+      </ng-template>
+    </p-splitter>
+  </p-card>
+</div>
+<p-toast></p-toast>

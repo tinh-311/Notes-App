@@ -1,0 +1,35 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "title": "Note 1",
+      "note": "sdgfdsgsgrỷtgdfgsdfsf",
+      "author": "Timmo",
+      "authorId": 1
+    },
+    {
+      "id": 2,
+      "title": "Note 2",
+      "note": "sdgsdgsdgdsggdfdfghfggffhfgh",
+      "author": "Timmo",
+      "authorId": 1
+    },
+    {
+      "id": 3,
+      "title": "fgh",
+      "note": "fgh",
+      "author": "Timmo",
+      "authorId": 1
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
