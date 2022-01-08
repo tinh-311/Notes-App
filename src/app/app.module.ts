@@ -18,6 +18,9 @@ import { ToastModule } from 'primeng/toast';
 import {DialogModule} from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {TooltipModule} from 'primeng/tooltip';
+import {ScrollPanelModule} from 'primeng/scrollpanel';
+import {PanelModule} from 'primeng/panel';
+import {DividerModule} from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import {TooltipModule} from 'primeng/tooltip';
     ToastModule,
     DialogModule,
     BrowserAnimationsModule,
-    TooltipModule
+    TooltipModule,
+    ScrollPanelModule,
+    PanelModule,
+    DividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
