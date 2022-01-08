@@ -1,11 +1,11 @@
 <div class="card">
-  <p-card header="Notes App">
+  <p-card header="NOTES APP" class="card_pcard">
     <button
       pButton
       pRipple
       type="button"
       icon="pi pi-plus"
-      class="p-button-rounded"
+      class="p-button-rounded card_pcard-btn"
       pTooltip="Add note"
       (click)="addNote()"
     ></button>
@@ -14,7 +14,7 @@
       pRipple
       type="button"
       icon="pi pi-trash"
-      class="p-button-rounded"
+      class="p-button-rounded card_pcard-btn"
       pTooltip="Remove note"
       (click)="deleteNote()"
     ></button>
@@ -23,7 +23,7 @@
       pRipple
       type="button"
       icon="pi pi-pencil"
-      class="p-button-rounded"
+      class="p-button-rounded card_pcard-btn"
       pTooltip="Edit note"
       (click)="editNote()"
     ></button>
@@ -32,50 +32,96 @@
       pRipple
       type="button"
       icon="pi pi-refresh"
-      class="p-button-rounded"
+      class="p-button-rounded card_pcard-btn"
       pTooltip="Refresh"
       (click)="refreshNote()"
     ></button>
+    <div
+            class="p-input-icon-right"
+            style="margin-bottom: 6px; width: 28%; float: right;"
+          >
+            <i
+              class="pi pi-search"
+              style="cursor: pointer"
+              (click)="searchNote()"
+            ></i>
+            <input
+              type="text"
+              pInputText
+              [(ngModel)]="txtSearchNote"
+              placeholder="Search"
+              style="height: 24px; width: 100%"
+            />
+          </div>
     <p-splitter
-      [style]="{ height: '300px' }"
+      [style]="{ height: '75vh' }"
       [panelSizes]="[50, 50]"
       styleClass="p-mb-5"
+      class="card_pcard_splitter"
     >
-      <ng-template pTemplate>
-        <div class="p-col p-d-flex p-ai-center p-jc-center">
-          <div class="p-input-icon-right" style="margin-bottom: 20px">
-            <i class="pi pi-search" style="cursor: pointer" (click)="searchNote()"></i>
-            <input type="text" pInputText [(ngModel)]="txtSearchNote" placeholder="Search" />
-          </div>
-
-          <li *ngIf="newNote && !isEditNote" style="cursor: pointer">
-            {{ newNote.title }}
-            <br />
-            <span style="font-style: italic; margin-left: 30px">{{
-              newNote.note.toString().substring(0, 20)
-            }}</span>
-          </li>
-          <li
-            *ngFor="let note of notes"
-            style="cursor: pointer"
-            (click)="viewNote(note)"
-            [ngClass]="getSelectedClass(note)"
-          >
-            <b>{{ note.title }}</b>
-            <br />
-            <span style="font-style: italic; margin-left: 30px">
-              {{ note.note.toString().substring(0, 20) }} ...
-            </span>
-          </li>
+      <ng-template pTemplate class="card_pcard_splitter-left">
+        <div class="p-col p-d-flex p-ai-center p-jc-center" style="width: 100%">
+          <p-scrollPanel [style]="{ width: '100%', height: '65vh' }">
+            <div
+              *ngIf="newNote && !isEditNote"
+              style="
+                cursor: pointer;
+                word-break: break-all;
+                padding-left: 14px;
+                padding-right: 14px;
+              "
+            >
+              <span class="bold">
+                <i class="pi pi-bookmark-fill"></i>
+                {{ newNote.title.toString().substring(0, 30) }}
+              </span>
+              <span *ngIf="newNote.title.toString().length >= 30"> ... </span>
+              <br />
+              <span
+                style="
+                  font-style: italic;
+                  margin-left: 30px;
+                  word-break: break-all;
+                "
+                >{{ newNote.note.toString().substring(0, 60) }}
+              </span>
+              <span *ngIf="newNote.note.toString().length >= 60"> ... </span>
+            </div>
+            <div
+              *ngFor="let note of notes"
+              style="cursor: pointer; padding-left: 14px; padding-right: 14px"
+              (click)="viewNote(note)"
+              [ngClass]="getSelectedClass(note)"
+            >
+              <b style="word-break: break-all">
+                <i class="pi pi-bookmark-fill"></i>
+                {{ note.title.toString().substring(0, 30) }}
+              </b>
+              <span class="bold" *ngIf="note.title.toString().length >= 30">
+                ...
+              </span>
+              <br />
+              <span
+                style="
+                  font-style: italic;
+                  margin-left: 30px;
+                  word-break: break-all;
+                "
+              >
+                {{ note.note.toString().substring(0, 60) }}
+              </span>
+              <span *ngIf="note.note.toString().length >= 60"> ... </span>
+            </div>
+          </p-scrollPanel>
         </div>
       </ng-template>
-      <ng-template pTemplate>
-        <div *ngIf="newNote" style="width: 100%">
+      <ng-template pTemplate class="card_pcard_splitter-right">
+        <div *ngIf="newNote" style="width: 100%; padding: 14px;">
           <span class="p-float-label">
             <textarea
               id="float-input"
               rows="1"
-              style="width: 100%"
+              style="width: 100%; height: 40px;"
               pInputTextarea
               [(ngModel)]="newNote.title"
             ></textarea>
@@ -85,7 +131,7 @@
           <span class="p-float-label">
             <textarea
               id="float-input"
-              rows="7"
+              rows="18"
               style="width: 100%"
               pInputTextarea
               [(ngModel)]="newNote.note"
@@ -106,18 +152,32 @@
             (click)="cancelAddNote()"
           ></p-button>
         </div>
+
         <div
           class="p-col p-d-flex p-ai-center p-jc-center"
+          style="width: 100%"
           *ngIf="selectedNote && !newNote"
         >
-          <span style="font-style: italic">
-            <b>{{ selectedNote.title }} </b>
-          </span>
-          <br />
-          {{ selectedNote.note }}
+          <div
+            class="bold"
+            style="
+              word-break: break-all;
+              margin-bottom: 10px;
+              background-color: rgb(216, 214, 214);
+              box-sizing: border-box;
+              padding: 12px;
+            "
+          >
+            {{ selectedNote.title }}
+          </div>
+          <p-scrollPanel [style]="{ width: '100%', height: '65vh' }">
+            <div style="word-break: break-all; padding: 14px">
+              {{ selectedNote.note }}
+            </div>
+          </p-scrollPanel>
         </div>
       </ng-template>
     </p-splitter>
   </p-card>
 </div>
-<p-toast ></p-toast>
+<p-toast></p-toast>
