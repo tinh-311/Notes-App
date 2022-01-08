@@ -49,3 +49,9 @@ textarea {
     }
   }
 }
+
+@media all and (max-width: 514px) {
+  #btn-save {
+    margin-bottom: 5%;
+  }
+}

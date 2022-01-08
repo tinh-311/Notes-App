@@ -37,22 +37,22 @@
       (click)="refreshNote()"
     ></button>
     <div
-            class="p-input-icon-right"
-            style="margin-bottom: 6px; width: 28%; float: right;"
-          >
-            <i
-              class="pi pi-search"
-              style="cursor: pointer"
-              (click)="searchNote()"
-            ></i>
-            <input
-              type="text"
-              pInputText
-              [(ngModel)]="txtSearchNote"
-              placeholder="Search"
-              style="height: 24px; width: 100%"
-            />
-          </div>
+      class="p-input-icon-right"
+      style="margin-bottom: 6px; width: 28%; float: right"
+    >
+      <i
+        class="pi pi-search"
+        style="cursor: pointer"
+        (click)="searchNote()"
+      ></i>
+      <input
+        type="text"
+        pInputText
+        [(ngModel)]="txtSearchNote"
+        placeholder="Search"
+        style="height: 24px; width: 100%"
+      />
+    </div>
     <p-splitter
       [style]="{ height: '75vh' }"
       [panelSizes]="[50, 50]"
@@ -116,12 +116,12 @@
         </div>
       </ng-template>
       <ng-template pTemplate class="card_pcard_splitter-right">
-        <div *ngIf="newNote" style="width: 100%; padding: 14px;">
+        <div *ngIf="newNote" style="width: 100%; padding: 14px">
           <span class="p-float-label">
             <textarea
               id="float-input"
               rows="1"
-              style="width: 100%; height: 40px;"
+              style="width: 100%; height: 35px"
               pInputTextarea
               [(ngModel)]="newNote.title"
             ></textarea>
@@ -131,7 +131,7 @@
           <span class="p-float-label">
             <textarea
               id="float-input"
-              rows="18"
+              rows="14"
               style="width: 100%"
               pInputTextarea
               [(ngModel)]="newNote.note"
@@ -139,18 +139,23 @@
             <label for="float-input">Note</label>
           </span>
           <br />
-          <p-button
-            label="Save"
-            icon="pi pi-check"
-            (click)="saveNote()"
-          ></p-button>
-          <p-button
+          <div style="text-align: center; width: 100%; word-break: break-all;">
+            <p-button
+              label="Save"
+              icon="pi pi-check"
+              (click)="saveNote()"
+              id="btn-save"
+              style="display: inline-block; margin-right: 8%;"
+            ></p-button>
+
+            <p-button
             label="Cancel"
             icon="pi pi-times"
             styleClass="p-button-secondary"
-            [style]="{ 'margin-left': '.5em' }"
             (click)="cancelAddNote()"
-          ></p-button>
+             ></p-button>
+
+          </div>
         </div>
 
         <div
