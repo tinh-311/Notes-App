@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, Message, MessageService } from 'primeng/api';
 import { Note } from '../note.nodule';
 
 @Component({
@@ -17,6 +17,9 @@ export class MainComponent implements OnInit {
   public newNote: Note | undefined;
   public isEditNote: boolean | undefined;
   public txtSearchNote: string = '';
+
+  display: boolean = false;
+
 
   constructor(
     private dataServices: DataService,
@@ -50,6 +53,10 @@ export class MainComponent implements OnInit {
     this.getData();
   }
 
+  showDialog() {
+    this.display = true;
+  }
+
   public viewNote(note: Note): void {
     this.selectedNote = note;
   }
@@ -69,6 +76,7 @@ export class MainComponent implements OnInit {
       note: '',
       author: 'Timmo',
       authorId: this.authorId,
+      date: new Date()
     };
 
     this.selectedNote = this.newNote;
@@ -94,6 +102,8 @@ export class MainComponent implements OnInit {
       this.dataServices.postNote(this.newNote).subscribe((note) => {
         this.notes?.unshift(note);
         this.cancelAddNote();
+        this.getData();
+        this.messageService.add({severity:'success', summary:'Success', detail:'Add note sucsess'});
       });
     }
   }
@@ -109,6 +119,8 @@ export class MainComponent implements OnInit {
       });
 
       this.selectedNote = undefined;
+
+      this.messageService.add({severity:'success', summary:'Success', detail:'Delete note sucsess'});
     });
   }
 
@@ -120,11 +132,12 @@ export class MainComponent implements OnInit {
   public searchNote(): void {
     this.selectedNote = undefined;
     this.notes = this.notes.filter(note => {
-      return note.title.includes(this.txtSearchNote);
+      return note.title.toLowerCase().includes(this.txtSearchNote.toLowerCase());
     })
 
-    if(this.notes.length === 0) {
+    if(this.notes.length === 0 || !this.txtSearchNote) {
       this.getData();
+      this.messageService.add({severity:'info', summary:'Notify', detail:'Not found'});
     }
 
   }
@@ -136,7 +149,14 @@ export class MainComponent implements OnInit {
   private getData(): void {
     this.dataServices.getNotes(this.authorId).subscribe((data) => {
       this.notes = data;
-      this.selectedNote = this.notes[0];
+      this.selectedNote = this.notes[this.notes.length - 1];
+      this.filter();
+    });
+  }
+
+  public filter(): void {
+    this.notes.sort((a, b) => {
+      return <any>new Date(b.date) - <any>new Date(a.date);
     });
   }
 }

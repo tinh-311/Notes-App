@@ -4,4 +4,5 @@ export interface Note {
   note: string;
   author: string;
   authorId: number;
+  date: Date;
 }
